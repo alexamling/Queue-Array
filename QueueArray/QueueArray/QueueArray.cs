@@ -70,5 +70,28 @@ namespace QueueArray
                 queue.Enqueue(new QueueItem<T>());
             }
         }
+
+        public void Remove(int index)
+        {
+            QueueItem<T> temp; // var to hold items while looping through the queue
+
+            // get the desired index to the front of the queue
+            for (int x = 0; x < index; x++)
+            {
+                temp = queue.Dequeue();
+                queue.Enqueue(temp);
+            }
+
+            queue.Dequeue(); // remove old data
+            queue.Enqueue(new QueueItem<T>()); // add empty queue item
+
+            // rotate back through to the initia; index
+            for (int x = 0; x < length - index; x++)
+            {
+                temp = queue.Dequeue();
+                queue.Enqueue(temp);
+            }
+
+        }
     }
 }
