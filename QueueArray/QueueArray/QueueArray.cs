@@ -37,7 +37,26 @@ namespace QueueArray
 
                 return data;
             }
-            set { }
+            set
+            {
+                QueueItem<T> temp; // var to hold items while looping through the queue
+
+                // get the desired index to the front of the queue
+                for (int x = 0; x < index; x++)
+                {
+                    temp = queue.Dequeue();
+                    queue.Enqueue(temp);
+                }
+
+                queue.Peek().Data = value; // set desired data
+
+                // rotate back through to the initia; index
+                for (int x = 0; x < length - index; x++)
+                {
+                    temp = queue.Dequeue();
+                    queue.Enqueue(temp);
+                }
+            }
         }
 
         public QueueArray(int len)
